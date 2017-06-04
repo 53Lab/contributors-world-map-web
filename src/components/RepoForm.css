@@ -1,0 +1,8 @@
+.repoForm input[type="text"] {
+  margin-right: 20px;
+  min-width: 300px;
+}
+
+.repoForm input[type="text"].error {
+  border-color: red;
+}
