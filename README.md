@@ -1,4 +1,4 @@
-# :earth_africa: GitHub contributors world map (WIP)
+# :earth_africa: GitHub contributors world map by location (WIP)
 Watch in a map the contributors to a given open source project in github based on its location.
 
 ## How this work ?
