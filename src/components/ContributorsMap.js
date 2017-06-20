@@ -1,0 +1,104 @@
+import React, { Component } from 'react'
+import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import 'whatwg-fetch'
+import './ContributorsMap.css'
+
+class ContributorsMap extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      date: null,
+      contributors: [],
+      repo: ''
+    }
+    this.updateMapState = this.updateMapState.bind(this)
+  }
+
+  componentDidMount () {
+    const form = document.getElementById(this.props.form)
+    if (form) {
+      form.addEventListener (this.props.event, (e) => {
+        this.setState({
+          repo: e.detail
+        })
+
+        fetchRepo(e.detail)
+          .then(this.updateMapState)
+      })
+    }
+  }
+
+  componentWillUnmount () {
+    const form = document.getElementById(this.props.form)
+    if (form) {
+      form.removeEventListener(this.props.event)
+    }
+  }
+
+  getMarkerJSX (contributor) {
+    const point = [contributor.city.lat, contributor.city.lon]
+    return <Marker key={contributor.login} position={point}>
+      <Popup>
+        <div>
+          <b>{contributor.login}</b> ({contributor.location})<br/>
+          <a href={contributor.url} target="_blank" rel="noopener noreferrer">
+            {contributor.url}
+          </a>
+        </div>
+      </Popup>
+    </Marker>
+  }
+
+  updateMapState (data) {
+    this.setState({
+      date: data.date,
+      contributors: data.contributors
+    })
+  }
+
+  render () {
+    const spanStyle = {
+      display: this.state.date ? 'block' : 'none'
+    }
+    const opts = {
+       center: [51.505, -0.09], // London
+       zoom: 2
+     }
+    const markers = this.state.contributors
+      .filter(contributor => contributor.city)
+      .map(this.getMarkerJSX)
+
+    return (
+      <div>
+          <Map center={opts.center} zoom={opts.zoom}>
+            <TileLayer
+              url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {markers}
+          </Map>
+        <span style={spanStyle}>{this.state.date ? `Cached since: ${getDate(this.state.date)}` : ''}</span>
+      </div>
+    )
+  }
+}
+
+function fetchRepo (repo) {
+  const HOST = 'http://localhost:3005/'
+  const url = `${HOST}${repo}`
+  const options = {
+    credentials: 'include'
+  }
+  return fetch(url, options)
+    .then(function(response) {
+      return response.status === 200 ? response.json() : {}
+    }).catch(function(ex) {
+      console.error('parsing failed', ex)
+    })
+}
+
+function getDate (number) {
+  return new Date(Number(number)).toUTCString()
+}
+
+export default ContributorsMap
