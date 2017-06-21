@@ -5,3 +5,29 @@
 img.help-icon {
   margin-left: 10px;
 }
+
+form {
+  display: inline;
+}
+
+/*taken from https://codepen.io/iPawan/pen/BKkCo*/
+img.flash {
+  width: 32px;
+  height: 32px;
+  -webkit-animation: flash linear 1s infinite;
+  animation: flash linear 1s infinite;
+  vertical-align: middle;
+  margin-left: 20px;
+  display: none;
+}
+
+@-webkit-keyframes flash {
+	0% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
+}
+@keyframes flash {
+	0% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
+}

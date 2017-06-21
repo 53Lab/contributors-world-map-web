@@ -21,9 +21,12 @@ class ContributorsMap extends Component {
         this.setState({
           repo: e.detail
         })
+      const loadingImg = document.querySelector(this.props.imgSelector)
+      loadingImg.style.display = 'inline'
 
         fetchRepo(e.detail)
           .then(this.updateMapState)
+          .then(() => loadingImg.style.display = 'none')
       })
     }
   }

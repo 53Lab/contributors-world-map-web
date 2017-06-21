@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import RepoForm from './components/RepoForm.js'
 import ContributorsMap from './components/ContributorsMap.js'
+import ghLoading from './1498097343_Github.svg'
 
 class App extends Component {
   render () {
@@ -18,7 +19,13 @@ class App extends Component {
         <h6>Choose a <strong>repository</strong> and watch its contributors <u>locations</u> on Map</h6>
 
         <RepoForm phText=":user/:repository" event="repoUpdated"></RepoForm>
-        <ContributorsMap form="repoForm" event="repoUpdated"></ContributorsMap>
+        <img className="flash" src={ghLoading} alt="loading..." title="loading..."/>
+
+        <ContributorsMap
+          form="repoForm"
+          event="repoUpdated"
+          imgSelector="img.flash">
+        </ContributorsMap>
 
         <div className="footer">
           <iframe
