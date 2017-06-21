@@ -9,7 +9,8 @@ class ContributorsMap extends Component {
     this.state = {
       date: null,
       contributors: [],
-      repo: ''
+      repo: '',
+      error: false
     }
     this.updateMapState = this.updateMapState.bind(this)
   }
@@ -54,10 +55,17 @@ class ContributorsMap extends Component {
   }
 
   updateMapState (data) {
-    this.setState({
-      date: data.date,
-      contributors: data.contributors
-    })
+    if (data && data.date && data.contributors) {
+      this.setState({
+        date: data.date,
+        contributors: data.contributors,
+        error: false
+      })
+    } else {
+      this.setState({
+        error: true
+      })
+    }
   }
 
   render () {
