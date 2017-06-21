@@ -26,7 +26,8 @@ class ContributorsMap extends Component {
 
         fetchRepo(e.detail)
           .then(this.updateMapState)
-          .then(() => loadingImg.style.display = 'none')
+          .then(hideElem(loadingImg))
+          .catch(hideElem(loadingImg))
       })
     }
   }
@@ -102,6 +103,10 @@ function fetchRepo (repo) {
 
 function getDate (number) {
   return new Date(Number(number)).toUTCString()
+}
+
+function hideElem (elem) {
+  return (elm) => elem.style.display = 'none'
 }
 
 export default ContributorsMap
