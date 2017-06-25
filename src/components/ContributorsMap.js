@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'whatwg-fetch'
 import './ContributorsMap.css'
+import ENV from '../env.json'
 
 class ContributorsMap extends Component {
   constructor (props) {
@@ -91,8 +92,7 @@ class ContributorsMap extends Component {
 }
 
 function fetchRepo (repo) {
-  const HOST = 'http://localhost:3005/'
-  const url = `${HOST}${repo}`
+  const url = `${ENV.HOST}${repo}`
   const options = {
     credentials: 'include'
   }
