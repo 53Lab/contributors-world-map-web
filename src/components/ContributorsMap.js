@@ -1,3 +1,4 @@
+/* global fetch */
 import React, { Component } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'whatwg-fetch'
@@ -19,12 +20,12 @@ class ContributorsMap extends Component {
   componentDidMount () {
     const form = document.getElementById(this.props.form)
     if (form) {
-      form.addEventListener (this.props.event, (e) => {
+      form.addEventListener(this.props.event, (e) => {
         this.setState({
           repo: e.detail
         })
-      const loadingImg = document.querySelector(this.props.imgSelector)
-      loadingImg.style.display = 'inline'
+        const loadingImg = document.querySelector(this.props.imgSelector)
+        loadingImg.style.display = 'inline'
 
         fetchRepo(e.detail)
           .then(this.updateMapState)
@@ -46,8 +47,8 @@ class ContributorsMap extends Component {
     return <Marker key={contributor.login} position={point}>
       <Popup>
         <div>
-          <b>{contributor.login}</b> ({contributor.location})<br/>
-          <a href={contributor.url} target="_blank" rel="noopener noreferrer">
+          <b>{contributor.login}</b> ({contributor.location})<br />
+          <a href={contributor.url} target='_blank' rel='noopener noreferrer'>
             {contributor.url}
           </a>
         </div>
@@ -60,7 +61,7 @@ class ContributorsMap extends Component {
     this.setState({
       date: resultOk ? data.date : null,
       contributors: resultOk ? data.contributors : [],
-      error: resultOk ? false : true
+      error: !resultOk
     })
   }
 
@@ -69,22 +70,22 @@ class ContributorsMap extends Component {
       display: this.state.date ? 'block' : 'none'
     }
     const opts = {
-       center: [51.505, -0.09], // London
-       zoom: 2
-     }
+      center: [51.505, -0.09], // London
+      zoom: 2
+    }
     const markers = this.state.contributors
       .filter(contributor => contributor.city)
       .map(this.getMarkerJSX)
 
     return (
       <div>
-          <Map center={opts.center} zoom={opts.zoom}>
-            <TileLayer
-              url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        <Map center={opts.center} zoom={opts.zoom}>
+          <TileLayer
+            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
-            {markers}
-          </Map>
+          {markers}
+        </Map>
         <span style={spanStyle}>{this.state.date ? `Cached since: ${getDate(this.state.date)}` : ''}</span>
       </div>
     )
@@ -97,9 +98,9 @@ function fetchRepo (repo) {
     credentials: 'include'
   }
   return fetch(url, options)
-    .then(function(response) {
+    .then(function (response) {
       return response.status === 200 ? response.json() : {}
-    }).catch(function(ex) {
+    }).catch(function (ex) {
       console.error('parsing failed', ex)
     })
 }
@@ -109,7 +110,9 @@ function getDate (number) {
 }
 
 function hideElem (elem) {
-  return (elm) => elem.style.display = 'none'
+  return () => {
+    elem.style.display = 'none'
+  }
 }
 
 export default ContributorsMap

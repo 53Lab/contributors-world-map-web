@@ -8,8 +8,8 @@ class LabelDate extends Component {
     }
   }
 
-  render() {
-    return this.state.date 
+  render () {
+    return this.state.date
       ? <p>Cached at {getDate(this.state.date)}</p>
       : <p>test</p>
   }

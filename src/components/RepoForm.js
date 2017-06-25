@@ -1,3 +1,4 @@
+/* global CustomEvent */
 import React, { Component } from 'react'
 import './RepoForm.css'
 
@@ -36,12 +37,12 @@ class RepoForm extends Component {
 
   render () {
     return (
-      <form id="repoForm" className="repoForm" onSubmit={this.handleSubmit}>
-        <input type="text" className={this.state.valid ? 'valid' : 'error'}
-          title="Pick a project from github, example: vuejs/vue"
+      <form id='repoForm' className='repoForm' onSubmit={this.handleSubmit}>
+        <input type='text' className={this.state.valid ? 'valid' : 'error'}
+          title='Pick a project from github, example: vuejs/vue'
           onChange={this.handleChange}
-          value={this.state.repo} placeholder={this.props.phText}/>
-        <input className="button-primary" type="submit" value="map"/>
+          value={this.state.repo} placeholder={this.props.phText} />
+        <input className='button-primary' type='submit' value='map' />
       </form>
     )
   }
