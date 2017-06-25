@@ -55,17 +55,12 @@ class ContributorsMap extends Component {
   }
 
   updateMapState (data) {
-    if (data && data.date && data.contributors) {
-      this.setState({
-        date: data.date,
-        contributors: data.contributors,
-        error: false
-      })
-    } else {
-      this.setState({
-        error: true
-      })
-    }
+    const resultOk = data && data.date && data.contributors
+    this.setState({
+      date: resultOk ? data.date : null,
+      contributors: resultOk ? data.contributors : [],
+      error: resultOk ? false : true
+    })
   }
 
   render () {
