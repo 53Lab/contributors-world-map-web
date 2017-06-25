@@ -12,7 +12,7 @@ function getConfiguration (env) {
     prod: 'http://contributors-world-map.julces.com:3005/'
   }
   const conf = {
-    HOST: HOSTS[env]
+    HOST: HOSTS[env] || HOSTS.dev
   }
   return JSON.stringify(conf, null, '\t')
 }
