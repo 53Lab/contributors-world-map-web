@@ -94,10 +94,7 @@ class ContributorsMap extends Component {
 
 function fetchRepo (repo) {
   const url = `${ENV.HOST}${repo}`
-  const options = {
-    credentials: 'include'
-  }
-  return fetch(url, options)
+  return fetch(url)
     .then(function (response) {
       return response.status === 200 ? response.json() : {}
     }).catch(function (ex) {
