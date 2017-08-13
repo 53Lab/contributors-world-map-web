@@ -12,7 +12,15 @@ I will eventually made public the API used as well.
 - Click the markers on the map to watch contributors info.
 
 ### Contribute
-Any contributions is welcome, better than open an issue, fix it yourself!
+- Clone this repository:   
+ `$ git clone https://github.com/53Lab/contributors-world-map-web.git`   
+- `$ npm install`    
+- Run in local (dev mode against prod API):   
+  `$ npm run start-prod`  
+- Run tests in local:  
+  `$ npm test`
+
+**Any contributions is welcome**, better than open an issue, fix it yourself!
 
 #### License
 MIT © [Julio C. Martin](https://twitter.com/juliomatcom)
