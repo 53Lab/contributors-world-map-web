@@ -15,4 +15,4 @@ I will eventually made public the API used as well.
 Any contributions is welcome, better than open an issue, fix it yourself!
 
 #### License
-MIT © Julio C. Martin
+MIT © [Julio C. Martin](https://twitter.com/juliomatcom)
