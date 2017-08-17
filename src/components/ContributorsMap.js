@@ -15,6 +15,7 @@ class ContributorsMap extends Component {
       error: false
     }
     this.updateMapState = this.updateMapState.bind(this)
+    this.alertIfError = this.alertIfError.bind(this)
   }
 
   componentDidMount () {
@@ -29,6 +30,7 @@ class ContributorsMap extends Component {
 
         fetchRepo(e.detail)
           .then(this.updateMapState)
+          .then(this.alertIfError)
           .then(hideElem(loadingImg))
           .catch(hideElem(loadingImg))
       })
@@ -65,6 +67,12 @@ class ContributorsMap extends Component {
     })
   }
 
+  alertIfError () {
+    if (this.state.error) {
+      alert('There is no info for this user/repo')
+    }
+  }
+
   render () {
     const spanStyle = {
       display: this.state.date ? 'block' : 'none'
@@ -78,7 +86,7 @@ class ContributorsMap extends Component {
       .map(this.getMarkerJSX)
 
     return (
-      <div>
+      <div id="mapContainer" className={this.state.error ? 'invalid' : 'valid'}>
         <Map center={opts.center} zoom={opts.zoom}>
           <TileLayer
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
