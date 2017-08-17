@@ -1,4 +1,4 @@
-/* global fetch */
+/* global fetch, alert */
 import React, { Component } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'whatwg-fetch'
@@ -86,7 +86,7 @@ class ContributorsMap extends Component {
       .map(this.getMarkerJSX)
 
     return (
-      <div id="mapContainer" className={this.state.error ? 'invalid' : 'valid'}>
+      <div id='mapContainer' className={this.state.error ? 'invalid' : 'valid'}>
         <Map center={opts.center} zoom={opts.zoom}>
           <TileLayer
             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
