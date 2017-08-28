@@ -1,4 +1,4 @@
-/* global fetch, alert */
+/* global fetch */
 import React, { Component } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import 'whatwg-fetch'
@@ -15,7 +15,6 @@ class ContributorsMap extends Component {
       error: false
     }
     this.updateMapState = this.updateMapState.bind(this)
-    this.alertIfError = this.alertIfError.bind(this)
   }
 
   componentDidMount () {
@@ -30,7 +29,6 @@ class ContributorsMap extends Component {
 
         fetchRepo(e.detail)
           .then(this.updateMapState)
-          .then(this.alertIfError)
           .then(hideElem(loadingImg))
           .catch(hideElem(loadingImg))
       })
@@ -65,12 +63,6 @@ class ContributorsMap extends Component {
       contributors: resultOk ? data.contributors : [],
       error: !resultOk
     })
-  }
-
-  alertIfError () {
-    if (this.state.error) {
-      alert('There is no info for this user/repo')
-    }
   }
 
   render () {
